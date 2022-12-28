@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="EXAMPLE_DECISION_DMN" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="EXAMPLE_DECISION" name="EXAMPLE_DECISION 1">
+    <decisionTable id="DecisionTable_1we1gg4">
+      <input id="Input_1" label="String Input">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>stringVariable</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0iiyf70" label="Int Input">
+        <inputExpression id="LiteralExpression_1cu0goo" typeRef="integer">
+          <text>intVariable</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Boolean Output" name="booleanVariable" typeRef="boolean" />
+      <rule id="DecisionRule_0cttui6">
+        <inputEntry id="UnaryTests_1s0jxb3">
+          <text>"first_value"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_047mp1h">
+          <text>1</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13nuire">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a5sqk0">
+        <inputEntry id="UnaryTests_1pmyn0o">
+          <text>"second_value"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gutgze">
+          <text>2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_014btqn">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03wew3z">
+        <inputEntry id="UnaryTests_0p58elr">
+          <text>"third_value"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_150uqms">
+          <text>3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r7ovir">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="EXAMPLE_DECISION">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

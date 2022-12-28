@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: camunda-test-local-variables-example
+
+camunda:
+  bpm:
+    admin-user:
+      id: demo
+      password: demo
+      firstName: demo
+    database:
+      schema-update: true
+      type: h2
+    application:
+      deploy-changed-only: true
+    history-level: activity
+
+server:
+  port: 8888

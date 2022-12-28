@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0v0jvji" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="example-bpmn" name="Процесс идентификации клиента банка" isExecutable="true" camunda:versionTag="1.0.0">
+    <bpmn:startEvent id="StartEventProcessIdentification" name="start process" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${ProcessStartListener}" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1g5rj8x</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1g5rj8x" sourceRef="StartEventProcessIdentification" targetRef="SIMPLE_DELEGATE_TASK" />
+    <bpmn:serviceTask id="SIMPLE_DELEGATE_TASK" name="SimpleDelegate" camunda:asyncAfter="true" camunda:exclusive="false" camunda:delegateExpression="${simpleDelegate}">
+      <bpmn:incoming>Flow_1g5rj8x</bpmn:incoming>
+      <bpmn:outgoing>Flow_1r2z1d9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EventCompleteClientIdentity" name="finish process" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_1rhxw3z</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1rhxw3z" sourceRef="SIMPLE_SENDER_TASK" targetRef="EventCompleteClientIdentity" />
+    <bpmn:sequenceFlow id="Flow_1r2z1d9" sourceRef="SIMPLE_DELEGATE_TASK" targetRef="SIMPLE_DMN_TASK" />
+    <bpmn:sendTask id="SIMPLE_SENDER_TASK" name="SimpleSender" camunda:asyncAfter="true" camunda:exclusive="false" camunda:delegateExpression="${simpleSenderDelegate}">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${simpleListener}" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_16ydvni</bpmn:incoming>
+      <bpmn:outgoing>Flow_1rhxw3z</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_16ydvni" sourceRef="SIMPLE_DMN_TASK" targetRef="SIMPLE_SENDER_TASK">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">{booleanVariable == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:businessRuleTask id="SIMPLE_DMN_TASK" name="SimpleDmn" camunda:asyncAfter="true" camunda:exclusive="false" camunda:resultVariable="booleanVariable" camunda:decisionRef="EXAMPLE_DECISION" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_1r2z1d9</bpmn:incoming>
+      <bpmn:outgoing>Flow_16ydvni</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+  </bpmn:process>
+  <bpmn:error id="Error_0lf1tmz" name="ProxyError" errorCode="ProxyError" />
+  <bpmn:escalation id="Escalation_1mynxuu" name="NEGATIVE_RESULT" escalationCode="CHECK_FAILED" />
+  <bpmn:message id="Message_0f1ymys" name="MTS_RESPONSE" />
+  <bpmn:message id="Message_177kjsw" name="CATEGORY_RESPONSE" />
+  <bpmn:error id="Error_0f9zfva" name="ResponseError" errorCode="RESPONSE_ERROR" camunda:errorMessage="ESB response error" />
+  <bpmn:message id="Message_0so248o" name="Message_3drj0c8" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="example-bpmn">
+      <bpmndi:BPMNEdge id="Flow_16ydvni_di" bpmnElement="Flow_16ydvni">
+        <di:waypoint x="540" y="120" />
+        <di:waypoint x="620" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r2z1d9_di" bpmnElement="Flow_1r2z1d9">
+        <di:waypoint x="360" y="120" />
+        <di:waypoint x="440" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rhxw3z_di" bpmnElement="Flow_1rhxw3z">
+        <di:waypoint x="720" y="120" />
+        <di:waypoint x="782" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g5rj8x_di" bpmnElement="Flow_1g5rj8x">
+        <di:waypoint x="198" y="120" />
+        <di:waypoint x="260" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEventProcessIdentification">
+        <dc:Bounds x="162" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="150" y="145" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_15633bp_di" bpmnElement="SIMPLE_DELEGATE_TASK">
+        <dc:Bounds x="260" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1g0xkbw_di" bpmnElement="EventCompleteClientIdentity">
+        <dc:Bounds x="782" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="767" y="145" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tyftgu_di" bpmnElement="SIMPLE_SENDER_TASK">
+        <dc:Bounds x="620" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02bb8qr_di" bpmnElement="SIMPLE_DMN_TASK">
+        <dc:Bounds x="440" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

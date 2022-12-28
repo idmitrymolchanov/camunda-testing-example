@@ -1,0 +1,11 @@
+spring:
+  application:
+
+camunda:
+  bpm:
+    generate-unique-process-engine-name: true
+    generate-unique-process-application-name: true
+    database:
+      type: h2
+    history-level: activity
+    default-serialization-format: application/json
